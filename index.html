@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="Ivan Ponomarev">
+  <meta name="description" content="first lab work for web-programming">
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+  <script type="text/javascript" src="js/onLoadScript.js"></script>
+  <script type="text/javascript" src="js/validator.js"></script>
+  <script type="text/javascript" src="js/ClearTable.js"></script>
+  <title>Лаб 1</title>
+  <style>
+    body {
+      background-color: antiquewhite;
+      font-family: initial;
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    #hat {
+      font-family: monospace;
+      font-size: 20px;
+      text-align: left;
+      font-weight: 200;
+      color: black;
+    }
+
+    #submit-btn:hover {
+      color: darkred;
+    }
+
+    table {
+      margin-left: 15px;
+      vertical-align: baseline;
+    }
+
+    #area {
+      text-align: center;
+
+    }
+
+    #form {
+      font-size: 22px;
+      font-weight: 200;
+    }
+
+    #heading {
+      font-family: initial;
+      font-size: 22px;
+      font-weight: bolder;
+    }
+
+    #submit-btn {
+      font-family: initial;
+      font-size: 20px;
+      background-color: blanchedalmond;
+      margin-top: 10%;
+    }
+
+    #r-value {
+      background-color: blanchedalmond;
+      font-size: 15px;
+    }
+
+    #y-value {
+      background-color: blanchedalmond;
+      font-size: 15px;
+    }
+    #x-value{
+      font-size: 22px;
+    }
+
+    #result-table {
+      font-family: initial;
+      border-collapse: separate;
+      letter-spacing: 1px;
+      height: 190%;
+      font-size: 110%;
+      background-color: #3399ff;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+      border-bottom-left-radius: 20px;
+      text-align: center;
+      font-weight: 450;
+      margin-top: 65px;
+      margin-left: 100px;
+      table-layout: fixed; width: 270%;
+    }
+    #result-table td{
+      width: 30%;
+    }
+
+    #clear {
+      margin-left: 85%;
+      margin-top: -1.7%;
+    }
+
+    #clear {
+      font-family: initial;
+      font-size: 22px;
+      background-color: blanchedalmond;
+      margin-top: 3%;
+      position: fixed; margin-left: 40%; margin-bottom: 300px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+      border-bottom-left-radius: 20px;
+
+    }
+
+    #clear:hover {
+      color: darkred;
+    }
+    .input-label{
+      font-family: monospace;
+      font-size: 25px;
+      font-weight: 300;
+
+    }
+    .y-error-message, .x-error-message{
+      margin-top: 20px;
+      color: crimson;
+      font-family: inherit;
+    }
+
+
+
+
+  </style>
+</head>
+<body>
+<table id='main' width="100%">
+  <tr id="heading">
+    <th width="10%">Информация</th>
+    <th width="45%">График</th>
+    <th width="45%">Заданная область</th>
+  </tr>
+  <tr>
+    <td id="hat" width="20%"><br>
+      <p>Создатель:</p>
+      <p>Пономарев Иван Михайлович</p>
+      <p>Группа: Р32111</p>
+      <p>Вариант: 1015</p><br>
+      <p>Правила пользования:</p>
+      <p>1. Введите значение параметра R.</p>
+      <p>2. Введите координаты точки.</p>
+      <p>3. Дождитесь ответа.</p>
+      <p>
+        <ul id="links">
+          <li><a class="pointer" href=""></a>Исходный код:</li>
+
+        </ul>
+      </p>
+    </td>
+    <td id="area" width="20%">
+      <br>
+      <section id="coordinate-system">
+        <svg width="450px" height="450px" viewBox="0 0 300 300">
+          <!-- Координатные оси -->
+          <line x1="0" x2="300" y1="150" y2="150" stroke="#343548"></line>
+          <line x1="150" x2="150" y1="0" y2="300" stroke="#343548"></line>
+          <!--Стрелки-->
+          <polygon points="150,0 145,10 155,10" stroke="#343548"></polygon>
+          <polygon points="300,150 290,145 290,155" stroke="#343548"></polygon>
+          <!--Прямоугольник в третьей четверти-->
+          <polygon points="100,150 150,150 150,250 100,250" fill="rgb(51,153,255)"
+                   fill-opacity="0.9"></polygon>
+          <!--Треугольник во второй четверти-->
+          <polygon points="150,50 100,150 150,150" fill="rgb(51,153,255)" fill-opacity="0.9"></polygon>
+          <!--Четверть круга в первой четверти-->
+          <path d="M 250,150 C 250,100 200,50 150,50 L 150,150" fill="rgb(51,153,255)"
+                fill-opacity="0.9"></path>
+
+          <!-- Метки для значений R на оси X -->
+          <line x1="50" x2="50" y1="145" y2="155" stroke="#343548"></line>
+          <line x1="100" x2="100" y1="145" y2="155" stroke="#343548"></line>
+          <line x1="200" x2="200" y1="145" y2="155" stroke="#343548"></line>
+          <line x1="250" x2="250" y1="145" y2="155" stroke="#343548"></line>
+
+          <!-- Метки для значений R на оси Y -->
+          <line x1="145" x2="155" y1="50" y2="50" stroke="#343548"></line>
+          <line x1="145" x2="155" y1="100" y2="100" stroke="#343548"></line>
+          <line x1="145" x2="155" y1="200" y2="200" stroke="#343548"></line>
+          <line x1="145" x2="155" y1="250" y2="250" stroke="#343548"></line>
+
+          <!-- Подписи к осям -->
+          <text x="290" y="140">X</text>
+          <text x="155" y="10">Y</text>
+          <!-- Значения R на оси X -->
+          <text x="40" y="138">-R</text>
+          <text x="85" y="138">-R/2</text>
+          <text x="190" y="138">R/2</text>
+          <text x="245" y="138">R</text>
+          <!-- Значения R на оси Y -->
+          <text x="162" y="54">R</text>
+          <text x="162" y="104">R/2</text>
+          <text x="162" y="204">-R/2</text>
+          <text x="162" y="254">-R</text>
+        </svg>
+      </section>
+
+    </td>
+    <td id="data" width="60%">
+      <br>
+      <form class="form" id="form" onsubmit="start(); return false;" method="post">
+        <div class="x-value" id="x-value">
+          <label class="input-label">Выберите X:</label><br>
+          <input type="radio" name="x-value" id="x-2" value="-2">
+          <label for="x-2">-2</label>
+          <input type="radio" name="x-value" id="x-15" value="-1.5">
+          <label for="x-15">-1.5</label>
+          <input type="radio" name="x-value" id="x-1" value="-1">
+          <label for="x-1">-1</label>
+          <input type="radio" name="x-value" id="x-05" value="-0.5">
+          <label for="x-05">-0.5</label>
+          <input type="radio" name="x-value" id="x0" value="0">
+          <label for="x0">0</label>
+          <input type="radio" name="x-value" id="x05" value="0.5">
+          <label for="x0">0.5</label>
+          <input type="radio" name="x-value" id="x1" value="1">
+          <label for="x1">1</label>
+          <input type="radio" name="x-value" id="x15" value="1.5">
+          <label for="x15">1.5</label>
+          <input type="radio" name="x-value" id="x2" value="2">
+          <label for="x2">2</label>
+        </div>
+        <div class="x-error-message">
+        </div>
+        <br>
+        <div class="y-value">
+          <label for="y-value" class="input-label">Введите Y - значение из интервала (-3; 5): </label><br>
+          <input type="text" id="y-value" name="y-value" placeholder="Enter Y">
+          <div class="y-error-message"></div>
+        </div>
+        <br>
+
+
+        <div class="r-value">
+        <label for="r-value" class="input-label">Выберите R:</label><br>
+        <select id="r-value" size="1" name="r-value">
+          <option value="1">1</option>
+          <option value="1.5">1.5</option>
+          <option value="2">2</option>
+          <option value="2.5">2.5</option>
+          <option value="3">3</option>
+        </select>
+        </div>
+
+
+        <input type="submit" id="submit-btn" value="Проверить">
+
+      </form>
+    </td>
+    <tr>
+      <td class="content-div">
+        <table id="result-table">
+          <tr id="heads">
+            <th class="text">X</th>
+            <th class="text">Y</th>
+            <th class="text">R</th>
+            <th class="text">Текущее время</th>
+            <th class="text">Время выполнения</th>
+            <th class="text">Результат</th>
+          </tr>
+        </table>
+      </td>
+      <td>
+        <br>
+        <input class="pointer" id="clear" type="button" value="Очистить" onclick="clearTable()">
+      </td>
+    </tr>
+  </tr>
+
+
+</table>
+
+</body>
+
+</html>
