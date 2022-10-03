@@ -32,7 +32,7 @@ function validateY(y){
         return false;
     }
 
-    if (y.split(' ').length > 1){
+    if (!(y.replace(/\s/g, '').length > 0)){
         setErrorFor("y", "Y должен быть одним числом!");
         return false;
     }
@@ -56,9 +56,6 @@ function validateX(){
     return false;
 }
 
-function validateR(){
-
-}
 
 function cleanErrorMessages(){
     setErrorFor("y", "");
